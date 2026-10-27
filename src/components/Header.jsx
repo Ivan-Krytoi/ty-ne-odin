@@ -40,10 +40,12 @@ export default function Header() {
           className="nav-toggle"
           aria-expanded={open}
           aria-controls="site-nav"
+          aria-label={open ? 'Закрыть меню' : 'Открыть меню'}
+          title="Меню"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <CloseIcon /> : <MenuIcon />}
-          <span>Меню</span>
+          <span aria-hidden="true">Меню</span>
         </button>
 
         <nav

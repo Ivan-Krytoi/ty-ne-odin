@@ -39,6 +39,9 @@
   --sp-12: 48px;
   --sp-16: 64px;
   --sp-24: 96px;
+
+  /* Высота шапки (согласована с мобильным меню) */
+  --header-h: 64px;
 }
 
 /* ---------- Сброс/база ---------- */
@@ -254,7 +257,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-4);
-  min-height: 64px;
+  min-height: var(--header-h);
 }
 
 .logo {
@@ -294,20 +297,59 @@ p {
   cursor: pointer;
 }
 
+/* Компактная шапка на мобильных: низкий бар + кнопка «Меню» только иконкой */
+@media (max-width: 767px) {
+  :root {
+    --header-h: 52px;
+  }
+
+  .site-header__inner {
+    gap: var(--sp-2);
+  }
+
+  .logo {
+    white-space: nowrap;
+  }
+
+  .logo svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .logo span {
+    font-size: 1rem;
+  }
+
+  .nav-toggle {
+    flex: none;
+    width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    padding: 0;
+    gap: 0;
+    border-radius: 999px; /* круглая кнопка — меньше места, крупная зона тапа */
+  }
+
+  /* Подпись не нужна: иконку заменяет aria-label в разметке */
+  .nav-toggle span {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .site-nav.is-open,
   .site-nav.is-closing {
     position: fixed;
     inset: 0;
-    top: 64px;
+    top: var(--header-h);
     z-index: 60;
     background: var(--c-surface);
-    padding: var(--sp-6);
+    padding: var(--sp-4);
     overflow-y: auto;
   }
 
   .site-nav.is-open ul,
-  .site-nav ul {
+  .site-nav.is-closing ul {
     display: flex;
     flex-direction: column;
     gap: var(--sp-2);
@@ -315,9 +357,9 @@ p {
 
   .site-nav a {
     display: block;
-    padding: 14px 16px;
+    padding: 12px 16px;
     border-radius: var(--radius-input);
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     text-decoration: none;
     color: var(--c-text);
